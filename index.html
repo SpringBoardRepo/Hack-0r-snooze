@@ -24,6 +24,7 @@
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous"
     />
+
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="css/user.css" />
     <link rel="stylesheet" href="css/stories.css" />
@@ -36,19 +37,18 @@
       <div class="navbar-brand">
         <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
       </div>
-      <div class="nav-right">
-        <a class="nav-link" href="#" id="nav-login">login/signup</a>
-        <a class="nav-link" href="#" id="nav-user-profile"></a>
-        <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
-      </div>
       <div class="main-nav-links hidden">
         |
         <a class="nav-link" href="#" id="nav-submit">Submit</a>
         |
         <a class="nav-link" href="#" id="nav-favorite">Favorites</a>
         |
-        <a class="nav-link" href="#" id="nav-submit">My Stories</a>
-        |
+        <a class="nav-link" href="#" id="nav-story">My Stories</a>
+      </div>
+      <div class="nav-right">
+        <a class="nav-link" href="#" id="nav-login">login/signup</a>
+        <a class="nav-link" href="#" id="nav-user-profile"></a>
+        <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
       </div>
     </nav>
 
@@ -59,6 +59,12 @@
 
       <!-- List of all stories -->
       <ol id="all-stories-list" class="stories-list"></ol>
+
+      <!--List of all favorite stories-->
+      <ol id="all-favorite-story" class="hidden favorite-list"></ol>
+
+      <!--List of all user story-->
+      <ol id="all-user-story" class="hidden user-story-list"></ol>
     </section>
 
     <!-- Login and signup forms -->
@@ -114,6 +120,26 @@
         <button type="submit">create account</button>
       </form>
     </section>
+
+    <form action="#" id="submit-story" class="hidden" method="post">
+      <h4>Create Your Story</h4>
+      <div class="story-input in-line">
+        <label for="story-title" class="inline-label">Story Title</label>
+        <input type="text" id="story-text" />
+      </div>
+      <div class="story-input">
+        <label for="story-title" class="inline-label">Story Url</label>
+        <input type="url" id="story-url" />
+      </div>
+      <div class="story-input">
+        <label for="story-title" class="inline-label">Story Author</label>
+        <input type="text" id="story-author" />
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submit-form">
+        Submit
+      </button>
+    </form>
 
     <section id="user-profile" class="hidden">
       <div class="container">

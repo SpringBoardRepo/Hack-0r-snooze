@@ -74,21 +74,34 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  // async addStory( /* user, newStory */) {
-  //   // UNIMPLEMENTED: complete this function!
-
-  // }
-  async addStory(currentUser, storyList) {
+  async addStory(user, newStory) {
     // UNIMPLEMENTED: complete this function!
-    let newStory = await storyList.addStory(currentUser, {
-      title: "Test",
-      author: "M",
-      url: "http://meow.com"
-    });
-    console.log(newStory);
-    return newStory instanceof Story;
+    const response = await axios.post(`${BASE_URL}/stories`,
+      {
+        token: user.loginToken,
+        story: {
+          title: newStory.storyTitle,
+          url: newStory.storyUrl,
+          author: newStory.storyAuthor
+        },
+      }
+    );
+    const story = new Story(response.data.story);
+    return story;
   }
 
+  /**remove story from api */
+  async deleteStoryFromApi(user, id) {
+    await axios({
+      url: `${BASE_URL}/stories/${id}`,
+      method: 'DELETE',
+      data: { token: user.loginToken }
+    })
+    this.stories = this.stories.filter(s => s.storyId !== id)
+
+    user.ownStories = user.ownStories.filter(ele => ele.storyId !== id)
+    user.favorites = user.favorites.filter(ele => ele.storyId !== id)
+  }
 }
 
 /******************************************************************************
@@ -134,6 +147,7 @@ class User {
       method: "POST",
       data: { user: { username, password, name } },
     });
+    let { user } = response.data
 
     return new User(
       {
@@ -202,5 +216,38 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  /** Add a story to the list of user favorites and update the API
+  * - story: a Story instance to add to favorites
+  */
+  static async addFavoriteStory(id) {
+    await this.addOrRemoveFavorite("add", id);
+  }
+
+  /** remove a story to the list of user favorites and update the API
+   * - story: a Story instance to remove to favorites
+     */
+
+  static async removeFavoriteStory(story) {
+    this.favorites = currentUser.favorites.filter(s => s.storyId !== story.storyId)
+    await this.addOrRemoveFavorite("DELETE", story)
+  }
+  /** Update API with favorite/not-favorite.
+   *   - newState: "add" or "remove"
+   *   - story: Story instance to make favorite / not favorite
+   * */
+
+  static async addOrRemoveFavorite(newState, id) {
+    const method = newState === "add" ? "POST" : "DELETE"
+
+    await axios({
+      url: `${BASE_URL}/users/${currentUser.username}/favorites/${id}`,
+      method: method,
+      data: { token: currentUser.loginToken }
+    });
+  }
+  static isFavorite(story) {
+    return currentUser.favorites.some(s => (s.storyId === story.storyId));
   }
 }

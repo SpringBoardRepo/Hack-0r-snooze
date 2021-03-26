@@ -10,6 +10,7 @@ function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
+  $favoriteStories.hide();
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -34,3 +35,41 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+/** Handle click of logout button
+ *
+ * Remove their credentials from localStorage and refresh page
+ */
+
+function logout(evt) {
+  console.debug("logout", evt);
+  localStorage.clear();
+  location.reload();
+}
+
+$navLogOut.on("click", logout);
+
+function favoriteStory(evt) {
+  evt.preventDefault();
+  hidePageComponents();
+  $favoriteStories.show();
+  $submitStory.hide();
+
+}
+$navFavorite.on("click", favoriteStory)
+
+function myStories(evt) {
+  console.debug(myStories)
+  evt.preventDefault();
+  hidePageComponents();
+  $ownStories.show();
+  $favoriteStories.hide();
+}
+
+$navStories.on('click', myStories)
+
+function navSubmit() {
+  $('#submit-story').show();
+  $allStoriesList.hide();
+  $favoriteStories.hide();
+}
+$navSubmit.on('click', navSubmit)

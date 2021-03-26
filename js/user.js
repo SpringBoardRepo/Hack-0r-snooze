@@ -51,18 +51,6 @@ async function signup(evt) {
 
 $signupForm.on("submit", signup);
 
-/** Handle click of logout button
- *
- * Remove their credentials from localStorage and refresh page
- */
-
-function logout(evt) {
-  console.debug("logout", evt);
-  localStorage.clear();
-  location.reload();
-}
-
-$navLogOut.on("click", logout);
 
 /******************************************************************************
  * Storing/recalling previously-logged-in-user with localStorage
@@ -114,6 +102,8 @@ function updateUIOnUserLogin() {
 
   updateNavOnLogin();
   generateUserProfile();
+  $signupForm.hide();
+  $loginForm.hide();
 }
 
 function generateUserProfile() {
