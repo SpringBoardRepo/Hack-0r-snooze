@@ -112,7 +112,6 @@ function showUserStories() {
   } else {
     $ownStories.append(`<h5>Nothing to See Here!</h5>`);
   }
-  $ownStories.show();
 }
 
 /**Delete a story from API and UI on click */
