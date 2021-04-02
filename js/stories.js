@@ -65,9 +65,11 @@ function getStar(story) {
 function showFavoriteStories() {
   console.debug(showFavoriteStories)
   if (currentUser.favorites.length === 0) {
+    $favoriteStories.empty();
     $favoriteStories.append(`<h5>Nothing has been added</h5>`)
   }
   else {
+    $favoriteStories.empty();
     for (let fav of currentUser.favorites) {
       const favStory = generateStoryMarkup(fav);
       $favoriteStories.append(favStory);
@@ -86,14 +88,14 @@ async function toggleFavoriteStory(evt) {
   if ($target.hasClass('fas')) {
     await User.removeFavoriteStory($targetId);
     $target.closest('i').toggleClass('fas far')
-    showFavoriteStories();
+
   }
   else {
     await User.addFavoriteStory($targetId);
     $target.closest('i').toggleClass('fas far');
     const story = storyList.stories.find(s => s.storyId === $targetId)
     currentUser.favorites.push(story);
-    showFavoriteStories();
+
   }
 }
 $body.on('click', 'span', toggleFavoriteStory)

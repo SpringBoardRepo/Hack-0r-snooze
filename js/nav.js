@@ -51,6 +51,7 @@ $navLogOut.on("click", logout);
 function favoriteStory(evt) {
   evt.preventDefault();
   hidePageComponents();
+  showFavoriteStories();
   $favoriteStories.show();
   $submitStory.hide();
 
