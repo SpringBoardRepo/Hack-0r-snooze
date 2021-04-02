@@ -61,7 +61,7 @@ function getStar(story) {
    <i class="${favorite} fa-star"></i>
    </span>`
 }
-
+/**Show users favorite stories on page */
 function showFavoriteStories() {
   console.debug(showFavoriteStories)
   if (currentUser.favorites.length === 0) {
