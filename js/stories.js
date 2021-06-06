@@ -61,7 +61,7 @@ function getStar(story) {
    <i class="${favorite} fa-star"></i>
    </span>`
 }
-
+/**Show users favorite stories on page */
 function showFavoriteStories() {
   console.debug(showFavoriteStories)
   if (currentUser.favorites.length === 0) {
@@ -112,7 +112,6 @@ function showUserStories() {
   } else {
     $ownStories.append(`<h5>Nothing to See Here!</h5>`);
   }
-  $ownStories.show();
 }
 
 /**Delete a story from API and UI on click */
